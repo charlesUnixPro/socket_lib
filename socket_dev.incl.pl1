@@ -1,0 +1,19 @@
+/* IDCW_DEV_CMD */
+
+/* Device commands */
+
+/* Request status */
+dcl SOCKETDEV_request_status init (0) fixed bin (35);
+
+/* Reset and initialize device */
+dcl SOCKETDEV_socket init (1) fixed bin (35);
+
+/* T&D */
+dcl SOCKETDEV_test init(3) fixed bin (35);
+ 
+/* Data block for socket() call */
+dcl 1 SOCKETDEV_socket_data aligned,
+      2 domain fixed bin,
+      2 type fixed bin,
+      2 protocol fixed bin;
+

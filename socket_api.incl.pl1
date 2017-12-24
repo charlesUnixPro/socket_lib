@@ -1,0 +1,41 @@
+/* Entry points */
+
+/*    socket () */
+/* fd = socket (domain, type, protocol); */
+dcl socket_dev$socket entry (fixed bin (35), fixed bin (35), fixed bin (35)) returns (fixed bin (35));
+
+/* domain */
+dcl AF_INET init (1) fixed bin (35);
+
+/* type */
+/* SOCK_STREAM or */
+/* SOCK_STREAM + SOCK_NONBLOCK */
+dcl SOCK_STREAM init (1) fixed bin (35);
+dcl SOCK_NONBLOCK init (256) fixed bin (35);
+
+/* protocol */
+dcl IP init (0) fixed bin (35);
+
+
+
+
+/*    bind () */
+
+/* fd = bind (address, address_len); */
+dcl socket_dev$bind entry (fixed bin (35), ptr, fixed uns bin (18)) returns (fixed bin (35));
+
+dcl 1 sockaddr_in aligned,
+      2 sin_family fixed bin (35), /* address family: AF_INET */
+      2 sin_port uns fixed bin (16), /* port in host byte order */
+      2 sin_addr, /* internet address */
+        3 s_addr uns fixed bin (36); /* address in host byte order */
+
+
+
+
+/*    listen () */
+
+/* fd = listen (sockfd, backlog); */
+dcl socket_dev$listen entry (fixed bin (35), ptr, fixed bin (35)) returns (fixed bin (35));
+
+
