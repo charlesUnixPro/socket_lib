@@ -1,0 +1,44 @@
+12/24/2017	socket_api_
+
+Entry points
+
+:Entry: socket:
+
+The socket() function shall create an unbound socket in a communications
+domain, and return a file descriptor that can be used in later function calls
+that operate on sockets.
+
+Syntax:
+dcl socket_dev$socket entry (fixed bin (35), fixed bin (35), fixed bin (35)) returns (fixed bin (35));
+fd = socket (domain, type, protocol);
+
+Arguments:
+
+domain
+   Specifies the communications domain in which a socket is to be created.
+   (Input).
+   AF_NET is the only supported value.
+
+type
+   Specifies the type of socket to be created. (Input)
+   SOCK_STREAM is the only supported value. SOCK_STREAM+SOCK_NONBLOCK may be
+   specified.
+
+protocol
+   Specifies a particular protocol to be used with the socket. Specifying a
+   protocol of 0 causes socket() to use an unspecified default protocol
+   appropriate for the requested socket type. (Input)
+   IP is the only support value.
+
+fd
+   Upon successful completion, socket() shall return a non-negative integer,
+   the socket file descriptor. Otherwise, a value of −1 shall be returned and
+   errno set to indicate the error. (Output)
+   XXX how do we handle errno?
+
+
+
+
+
+
+
