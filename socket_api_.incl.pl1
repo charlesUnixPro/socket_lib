@@ -21,7 +21,7 @@ dcl IP init (0) fixed bin (35);
 
 /*    bind () */
 
-/* fd = bind (address, address_len); */
+/* code = bind (address, address_len); */
 dcl socket_dev$bind entry (fixed bin (35), ptr, fixed uns bin (18)) returns (fixed bin (35));
 
 dcl 1 sockaddr_in aligned,

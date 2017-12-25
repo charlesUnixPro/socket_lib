@@ -37,8 +37,36 @@ fd
    XXX how do we handle errno?
 
 
+:Entry: bind:
+
+The bind() function shall assign a local socket address address to a socket
+   identified by descriptor socket that has no local socket address assigned.
+   Sockets created with the socket() function are initially unnamed; they are
+   identified only by their address family.
+
+Syntax: 
+dcl socket_dev$bind entry (fixed bin (35), ptr, fixed uns bin (18)) returns (fixed bin (35));
+code = bind (socket, address, address_len);
 
 
+Arguments:
 
+socket
+   Specifies the file descriptor of the socket to be bound. (Input).
+
+address
+   Points to a sockaddr structure containing the address to be bound to the
+   socket. (Input)
+   The length and format of the address depend on the address family of the
+   socket. sockaddr_in is the only supported format and AF_INET is the
+   only supported address family.
+
+address_len 
+   Specifies the length of the sockaddr structure pointed to by the address
+   argument. (Input)
+
+code
+   Upon successful completion, bind() shall return 0; otherwise, −1 shall be
+   returned and errno set to indicate the error.
 
 

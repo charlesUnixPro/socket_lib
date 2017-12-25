@@ -16,4 +16,26 @@ dcl 1 SOCKETDEV_socket_data aligned,
       2 domain fixed bin,
       2 type fixed bin,
       2 protocol fixed bin;
+      2 pid fixed bin;
+      2 fd fixed bin;
+      2 errno fixed bin;
+
+/* Expecting tally to be 6 */
+/* domain, type and protocol are from the API parameters */
+/* pid is the Process ID of the calling process */
+/* fd, errno are the values returned by the host socket() call */
+
+
+/* Data block for bind() call */
+dcl 1 SOCKETDEV_bind_data aligned,
+      2 sockaddr like sockaddr_in,
+      2 pid fixed bin;
+      2 code fixed bin;
+      2 errno fixed bin;
+
+/* Expecting tally to be 6 */
+/* sockaddr is from the API parameter */
+/* pid is the Process ID of the calling process */
+/* odoe, errno are the values returned by the host socket() call */
+
 
