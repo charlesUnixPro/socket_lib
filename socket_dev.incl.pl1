@@ -5,8 +5,11 @@
 /* Request status */
 dcl SOCKETDEV_request_status init (0) fixed bin (35);
 
-/* Reset and initialize device */
+/* socket() */
 dcl SOCKETDEV_socket init (1) fixed bin (35);
+
+/* bind() */
+dcl SOCKETDEV_bind init (2) fixed bin (35);
 
 /* T&D */
 dcl SOCKETDEV_test init(3) fixed bin (35);
