@@ -39,3 +39,10 @@ dcl 1 sockaddr_in aligned,
 dcl socket_dev$listen entry (fixed bin (35), ptr, fixed bin (35)) returns (fixed bin (35));
 
 
+/* First path of gethostby name only returns first address, does not handle
+ * IPV6, does not return offical name or aliases */
+/* gethostbyname (name, addr, code); */
+
+dcl socket_dev$gethostbyname entry (char varying, fixed uns bin (32), fixed bin (35));
+
+

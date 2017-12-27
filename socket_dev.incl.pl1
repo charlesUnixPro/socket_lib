@@ -14,6 +14,9 @@ dcl SOCKETDEV_bind init (2) fixed bin (35);
 /* T&D */
 dcl SOCKETDEV_test init(3) fixed bin (35);
  
+/* gethostbyname() */
+dcl SOCKETDEV_gethostbyname init(4) fixed bin (35);
+
 /* Data block for socket() call */
 dcl 1 SOCKETDEV_socket_data aligned,
       2 domain fixed bin,
@@ -32,13 +35,24 @@ dcl 1 SOCKETDEV_socket_data aligned,
 /* Data block for bind() call */
 dcl 1 SOCKETDEV_bind_data aligned,
       2 sockaddr like sockaddr_in,
-      2 pid fixed bin;
-      2 code fixed bin;
-      2 errno fixed bin;
+      2 pid fixed bin,
+      2 code fixed bin,
+      2 errno fixed bin,
 
 /* Expecting tally to be 6 */
 /* sockaddr is from the API parameter */
 /* pid is the Process ID of the calling process */
-/* odoe, errno are the values returned by the host socket() call */
+/* code, errno are the values returned by the host socket() call */
 
+/* Data block for gethostbyname() call */
+
+dcl 1 SOCKETDEV_gethostbyname_data aligned,
+      2 name char varying (256),
+      3 addr fixed uns bin (32),
+      3 code fixed bin (35);
+
+/* Unsure of the tally; I don't know how varying works. Guessing 67.
+/* name is the hostname to be looked up */
+/* addr is the returned IPV4 address */
+/* code is the returned code: 0 for success, h_errno otherwise */
 

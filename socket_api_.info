@@ -45,8 +45,8 @@ The bind() function shall assign a local socket address address to a socket
    identified only by their address family.
 
 Syntax: 
-dcl socket_dev$bind entry (fixed bin (35), ptr, fixed uns bin (18)) returns (fixed bin (35));
-code = bind (socket, address, address_len);
+dcl socket_dev$bind entry (fixed bin (35), ptr, fixed uns bin (18), fixed bin (35));
+bind (socket, address, address_len, code);
 
 
 Arguments:
