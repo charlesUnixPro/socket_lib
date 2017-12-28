@@ -17,6 +17,9 @@ dcl SOCKETDEV_test init(3) fixed bin (35);
 /* gethostbyname() */
 dcl SOCKETDEV_gethostbyname init(4) fixed bin (35);
 
+/* listen() */
+dcl SOCKETDEV_listen init (5) fixed bin (35);
+
 /* Data block for socket() call */
 dcl 1 SOCKETDEV_socket_data aligned,
       2 domain fixed bin,
@@ -31,28 +34,48 @@ dcl 1 SOCKETDEV_socket_data aligned,
 /* pid is the Process ID of the calling process */
 /* fd, errno are the values returned by the host socket() call */
 
-
 /* Data block for bind() call */
 dcl 1 SOCKETDEV_bind_data aligned,
-      2 sockaddr like sockaddr_in,
+      2 socket fixed bin,
+      2 sockaddr_in,
+        3 sin_family fixed bin (36),
+        3 sin_port fixed uns bin (16),
+        3 sin_addr,
+          4 octets (4) fixed bin(8) unsigned unal,
       2 pid fixed bin,
-      2 code fixed bin,
-      2 errno fixed bin,
+      2 errno fixed bin;
 
-/* Expecting tally to be 6 */
+/* Expecting tally to be 5 */
 /* sockaddr is from the API parameter */
 /* pid is the Process ID of the calling process */
-/* code, errno are the values returned by the host socket() call */
+/* errno, errno are the values returned by the host socket() call */
 
 /* Data block for gethostbyname() call */
 
 dcl 1 SOCKETDEV_gethostbyname_data aligned,
       2 name char varying (256),
       3 addr fixed uns bin (32),
-      3 code fixed bin (35);
+      3 errno fixed bin;
 
-/* Unsure of the tally; I don't know how varying works. Guessing 67.
+/* Tally 67.
 /* name is the hostname to be looked up */
 /* addr is the returned IPV4 address */
-/* code is the returned code: 0 for success, h_errno otherwise */
+/* errno is the returned code: 0 for success, h_errno otherwise */
 
+/* Data block for listen() call */
+
+dcl 1 SOCKETDEV_listen_data aligned,
+      2 sockfd fixed bin,
+      3 backlog fixed bin,
+      2 pid fixed bin;
+      2 rc fixed bin;
+      2 errno fixed bin;
+
+/* Tally 5 */
+/* In: */
+/*   sockfd */
+/*   backlog */
+/*   pid */
+/* Out: */
+/*   fd */
+/*   errno */

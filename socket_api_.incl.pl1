@@ -2,10 +2,10 @@
 
 /*    socket () */
 /* fd = socket (domain, type, protocol); */
-dcl socket_dev$socket entry (fixed bin (35), fixed bin (35), fixed bin (35)) returns (fixed bin (35));
+dcl socket_dev$socket entry (fixed bin, fixed bin, fixed bin) returns (fixed bin);
 
 /* domain */
-dcl AF_INET init (1) fixed bin (35);
+dcl AF_INET init (2) fixed bin (35);
 
 /* type */
 /* SOCK_STREAM or */
@@ -15,8 +15,6 @@ dcl SOCK_NONBLOCK init (256) fixed bin (35);
 
 /* protocol */
 dcl IP init (0) fixed bin (35);
-
-
 
 
 /*    bind () */
@@ -36,7 +34,7 @@ dcl 1 sockaddr_in aligned,
 /*    listen () */
 
 /* fd = listen (sockfd, backlog); */
-dcl socket_dev$listen entry (fixed bin (35), ptr, fixed bin (35)) returns (fixed bin (35));
+dcl socket_dev$listen entry (fixed bin, fixed bin) returns (fixed bin);
 
 
 /* First path of gethostby name only returns first address, does not handle
