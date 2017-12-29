@@ -20,34 +20,33 @@ dcl SOCKETDEV_gethostbyname init(4) fixed bin (35);
 /* listen() */
 dcl SOCKETDEV_listen init (5) fixed bin (35);
 
+
+
+
 /* Data block for socket() call */
 dcl 1 SOCKETDEV_socket_data aligned,
       2 domain fixed bin,
       2 type fixed bin,
       2 protocol fixed bin;
-      2 pid fixed bin;
       2 fd fixed bin;
-      2 errno fixed bin;
+      2 errno char(8);
 
 /* Expecting tally to be 6 */
 /* domain, type and protocol are from the API parameters */
-/* pid is the Process ID of the calling process */
 /* fd, errno are the values returned by the host socket() call */
 
 /* Data block for bind() call */
 dcl 1 SOCKETDEV_bind_data aligned,
       2 socket fixed bin,
       2 sockaddr_in,
-        3 sin_family fixed bin (36),
+        3 sin_family fixed bin,
         3 sin_port fixed uns bin (16),
         3 sin_addr,
           4 octets (4) fixed bin(8) unsigned unal,
-      2 pid fixed bin,
-      2 errno fixed bin;
+      2 errno char(8);
 
 /* Expecting tally to be 5 */
 /* sockaddr is from the API parameter */
-/* pid is the Process ID of the calling process */
 /* errno, errno are the values returned by the host socket() call */
 
 /* Data block for gethostbyname() call */
@@ -55,9 +54,9 @@ dcl 1 SOCKETDEV_bind_data aligned,
 dcl 1 SOCKETDEV_gethostbyname_data aligned,
       2 name char varying (256),
       3 addr fixed uns bin (32),
-      3 errno fixed bin;
+      3 errno char(8);
 
-/* Tally 67.
+/* Tally 68.
 /* name is the hostname to be looked up */
 /* addr is the returned IPV4 address */
 /* errno is the returned code: 0 for success, h_errno otherwise */
@@ -67,15 +66,13 @@ dcl 1 SOCKETDEV_gethostbyname_data aligned,
 dcl 1 SOCKETDEV_listen_data aligned,
       2 sockfd fixed bin,
       3 backlog fixed bin,
-      2 pid fixed bin;
       2 rc fixed bin;
-      2 errno fixed bin;
+      2 errno char(8);
 
 /* Tally 5 */
 /* In: */
 /*   sockfd */
 /*   backlog */
-/*   pid */
 /* Out: */
 /*   fd */
 /*   errno */
