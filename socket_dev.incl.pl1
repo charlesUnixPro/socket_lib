@@ -3,22 +3,28 @@
 /* Device commands */
 
 /* Request status */
-dcl SOCKETDEV_request_status init (0) fixed bin (35);
+dcl SOCKETDEV_request_status init (0) fixed bin;
 
 /* socket() */
-dcl SOCKETDEV_socket init (1) fixed bin (35);
+dcl SOCKETDEV_socket init (1) fixed bin;
 
 /* bind() */
-dcl SOCKETDEV_bind init (2) fixed bin (35);
+dcl SOCKETDEV_bind init (2) fixed bin;
 
 /* T&D */
-dcl SOCKETDEV_test init(3) fixed bin (35);
+dcl SOCKETDEV_test init(3) fixed bin;
  
 /* gethostbyname() */
-dcl SOCKETDEV_gethostbyname init(4) fixed bin (35);
+dcl SOCKETDEV_gethostbyname init(4) fixed bin;
 
 /* listen() */
-dcl SOCKETDEV_listen init (5) fixed bin (35);
+dcl SOCKETDEV_listen init (5) fixed bin;
+
+/* accept() */
+dcl SOCKETDEV_accept init (6) fixed bin;
+
+/* accept() */
+dcl SOCKETDEV_close init (7) fixed bin;
 
 
 
@@ -56,7 +62,7 @@ dcl 1 SOCKETDEV_gethostbyname_data aligned,
       3 addr fixed uns bin (32),
       3 errno char(8);
 
-/* Tally 68.
+/* Tally 68. */
 /* name is the hostname to be looked up */
 /* addr is the returned IPV4 address */
 /* errno is the returned code: 0 for success, h_errno otherwise */
@@ -76,3 +82,38 @@ dcl 1 SOCKETDEV_listen_data aligned,
 /* Out: */
 /*   fd */
 /*   errno */
+
+/* Data block for accept() call */
+
+dcl 1 SOCKETDEV_accept_data aligned,
+      2 sockfd fixed bin,
+      2 rc fixed bin,
+      2 sockaddr_in,
+        3 sin_family fixed bin,
+        3 sin_port fixed uns bin (16),
+        3 sin_addr,
+          4 octets (4) fixed bin(8) unsigned unal,
+      2 errno char(8);
+
+/* Tally 7 */
+/* In: */
+/*  sockfd */
+/* Out: */
+/*  rc */
+/*  sockaddr_in */
+/*  errno */
+
+/* Data block for close() call */
+
+dcl 1 SOCKETDEV_close_data aligned,
+      2 sockfd fixed bin,
+      2 rc fixed bin;
+      2 errno char(8);
+
+
+/* Tally 4 */
+/* In: */
+/*  sockfd */
+/* Out: */
+/*  rc */
+/*  errno */
