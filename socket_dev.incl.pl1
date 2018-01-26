@@ -26,6 +26,9 @@ dcl SOCKETDEV_accept init (6) fixed bin;
 /* accept() */
 dcl SOCKETDEV_close init (7) fixed bin;
 
+/* accept() */
+dcl SOCKETDEV_read init (8) fixed bin;
+
 
 
 
@@ -117,3 +120,25 @@ dcl 1 SOCKETDEV_close_data aligned,
 /* Out: */
 /*  rc */
 /*  errno */
+
+/* Data  block for read() call */
+
+dcl 1 SOCKETDEV_read_data8 aligned,
+      2 sockfd fixed bin,
+      2 count  fixed bin, /* buffer size */
+      2 rc     fixed bin,
+      2 errno  char(8),
+      2 buffer char (0 refer (SOCKETDEV_read_data9.cont);
+
+/* Tally >= 5 */
+/* In: */
+/*   sockfd */
+/*   count */
+/* Out: */
+/*   rc */
+/*   buffer */
+
+
+/*   buffer */
+/* 
+
