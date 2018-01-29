@@ -121,14 +121,14 @@ dcl 1 SOCKETDEV_close_data aligned,
 /*  rc */
 /*  errno */
 
-/* Data  block for read() call */
+/* Data  block for read8() call */
 
 dcl 1 SOCKETDEV_read_data8 aligned,
       2 sockfd fixed bin,
       2 count  fixed bin, /* buffer size */
       2 rc     fixed bin,
       2 errno  char(8),
-      2 buffer char (0 refer (SOCKETDEV_read_data9.cont);
+      2 buffer char (0 refer (SOCKETDEV_read_data9.count);
 
 /* Tally >= 5 */
 /* In: */
@@ -139,6 +139,23 @@ dcl 1 SOCKETDEV_read_data8 aligned,
 /*   buffer */
 
 
+
+/* Data  block for write8() call */
+
+dcl 1 SOCKETDEV_write_data8 aligned,
+      2 sockfd fixed bin,
+      2 count  fixed bin, /* buffer size */
+      2 rc     fixed bin,
+      2 errno  char(8),
+      2 buffer char (0 refer (SOCKETDEV_read_data9.count);
+
+/* Tally >= 5 */
+/* In: */
+/*   sockfd */
+/*   count */
 /*   buffer */
-/* 
+/* Out: */
+/*   rc */
+
+
 
