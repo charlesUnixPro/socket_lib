@@ -23,21 +23,24 @@ dcl SOCKETDEV_listen init (5) fixed bin;
 /* accept() */
 dcl SOCKETDEV_accept init (6) fixed bin;
 
-/* accept() */
+/* close() */
 dcl SOCKETDEV_close init (7) fixed bin;
 
-/* accept() */
-dcl SOCKETDEV_read init (8) fixed bin;
+/* read8() */
+dcl SOCKETDEV_read8 init (8) fixed bin;
 
+/* write8() */
+dcl SOCKETDEV_write8 init (9) fixed bin;
 
-
+/* connect() */
+dcl SOCKETDEV_connect init (10) fixed bin;
 
 /* Data block for socket() call */
 dcl 1 SOCKETDEV_socket_data aligned,
       2 domain fixed bin,
       2 type fixed bin,
-      2 protocol fixed bin;
-      2 fd fixed bin;
+      2 protocol fixed bin,
+      2 fd fixed bin,
       2 errno char(8);
 
 /* Expecting tally to be 6 */
@@ -49,7 +52,8 @@ dcl 1 SOCKETDEV_bind_data aligned,
       2 socket fixed bin,
       2 sockaddr_in,
         3 sin_family fixed bin,
-        3 sin_port fixed uns bin (16),
+        3 sin_port fixed bin (16) unsigned unaligned,
+        3 pad1 bit(20) unaligned,
         3 sin_addr,
           4 octets (4) fixed bin(8) unsigned unal,
       2 errno char(8);
@@ -61,9 +65,9 @@ dcl 1 SOCKETDEV_bind_data aligned,
 /* Data block for gethostbyname() call */
 
 dcl 1 SOCKETDEV_gethostbyname_data aligned,
-      2 name char varying (256),
-      3 addr fixed uns bin (32),
-      3 errno char(8);
+      2 name char (256) varying,
+      2 addr fixed uns bin (32),
+      2 errno char(8);
 
 /* Tally 68. */
 /* name is the hostname to be looked up */
@@ -74,8 +78,8 @@ dcl 1 SOCKETDEV_gethostbyname_data aligned,
 
 dcl 1 SOCKETDEV_listen_data aligned,
       2 sockfd fixed bin,
-      3 backlog fixed bin,
-      2 rc fixed bin;
+      2 backlog fixed bin,
+      2 rc fixed bin,
       2 errno char(8);
 
 /* Tally 5 */
@@ -110,7 +114,7 @@ dcl 1 SOCKETDEV_accept_data aligned,
 
 dcl 1 SOCKETDEV_close_data aligned,
       2 sockfd fixed bin,
-      2 rc fixed bin;
+      2 rc fixed bin,
       2 errno char(8);
 
 
@@ -123,12 +127,12 @@ dcl 1 SOCKETDEV_close_data aligned,
 
 /* Data  block for read8() call */
 
-dcl 1 SOCKETDEV_read_data8 aligned,
+dcl 1 SOCKETDEV_read8_data aligned based,
       2 sockfd fixed bin,
       2 count  fixed bin, /* buffer size */
       2 rc     fixed bin,
       2 errno  char(8),
-      2 buffer char (0 refer (SOCKETDEV_read_data9.count);
+      2 buffer char (0 refer (SOCKETDEV_read8_data.count));
 
 /* Tally >= 5 */
 /* In: */
@@ -137,17 +141,15 @@ dcl 1 SOCKETDEV_read_data8 aligned,
 /* Out: */
 /*   rc */
 /*   buffer */
-
-
 
 /* Data  block for write8() call */
 
-dcl 1 SOCKETDEV_write_data8 aligned,
+dcl 1 SOCKETDEV_write8_data aligned based,
       2 sockfd fixed bin,
       2 count  fixed bin, /* buffer size */
       2 rc     fixed bin,
       2 errno  char(8),
-      2 buffer char (0 refer (SOCKETDEV_read_data9.count);
+      2 buffer char (0 refer (SOCKETDEV_write8_data.count));
 
 /* Tally >= 5 */
 /* In: */
@@ -157,5 +159,24 @@ dcl 1 SOCKETDEV_write_data8 aligned,
 /* Out: */
 /*   rc */
 
+/* Data  block for connect() call */
 
+dcl 1 SOCKETDEV_connect_data aligned,
+     2 socket fixed bin,
+     2 sockaddr_in,
+       3 sin_family fixed bin,
+       3 sin_port fixed bin (16) unsigned unaligned,
+       3 pad1 bit (20) unaligned,
+       3 sin_addr,
+         4 octets (4) fixed bin(8) unsigned unal,
+     2 errno char(8);
+
+/* Tally = 4 */
+/* In: */
+/*   sockfd */
+/*   sin_familyt */
+/*   sin_port */
+/*   octets */
+/* Out: */
+/*   errno */
 
